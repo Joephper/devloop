@@ -326,9 +326,9 @@ sequenceDiagram
 |-------|---------|
 | auto-programming-workflow | [查看](./skills-reference/auto-programming-workflow.md) |
 | delivery-orchestrator | [查看](./skills-reference/delivery-orchestrator.md) |
-| product-manager | [查看](./skills-reference/product-manager.md) |
-| tech-developer | [查看](./skills-reference/tech-developer.md) |
+| product-manager | [查看](./skills-reference/agents/product-manager.md) |
+| tech-developer | [查看](./skills-reference/agents/tech-developer.md) |
 | parallel-dev | [查看](./skills-reference/parallel-dev.md) |
-| qa-tester | [查看](./skills-reference/qa-tester.md) |
+| qa-tester | [查看](./skills-reference/agents/qa-tester.md) |
 | merge-review | [查看](./skills-reference/merge-review.md) |
 | git-workflow | [查看](./skills-reference/git-workflow.md) |

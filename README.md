@@ -115,12 +115,13 @@ e:\开发文档\AI编程\
 └── skills-reference/                      # 八个核心 Skill 完整参考
     ├── auto-programming-workflow.md
     ├── delivery-orchestrator.md
-    ├── product-manager.md
-    ├── tech-developer.md
     ├── parallel-dev.md
-    ├── qa-tester.md
     ├── merge-review.md
-    └── git-workflow.md
+    ├── git-workflow.md
+    └── agents/                             # 角色型 agent
+        ├── product-manager.md
+        ├── tech-developer.md
+        └── qa-tester.md
 ```
 
 ---

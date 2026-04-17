@@ -21,10 +21,10 @@
 |------|------|---------|
 | [auto-programming-workflow.md](./auto-programming-workflow.md) | 跨项目自动化编程总入口 | "按流程来" / "新项目也用这套" |
 | [delivery-orchestrator.md](./delivery-orchestrator.md) | 总控编排，路由分发 | "从需求到合并帮我串起来" |
-| [product-manager.md](./product-manager.md) | 产品经理：需求梳理 + PRD | "梳理需求" / "写 PRD" |
-| [tech-developer.md](./tech-developer.md) | 技术开发：TECH 方案 + 编码 | "TECH 确认了，开始写代码" |
+| [agents/product-manager.md](./agents/product-manager.md) | 产品经理：需求梳理 + PRD | "梳理需求" / "写 PRD" |
+| [agents/tech-developer.md](./agents/tech-developer.md) | 技术开发：TECH 方案 + 编码 | "TECH 确认了，开始写代码" |
 | [parallel-dev.md](./parallel-dev.md) | 并行开发：拆分 + worktree + 联调 | "多个模块能不能并行做" |
-| [qa-tester.md](./qa-tester.md) | 测试工程师：用例 + Bug + 报告 | "测试用例 / 测试报告" |
+| [agents/qa-tester.md](./agents/qa-tester.md) | 测试工程师：用例 + Bug + 报告 | "测试用例 / 测试报告" |
 | [merge-review.md](./merge-review.md) | 合并前审查：Findings + 建议 | "合并前 review" |
 | [git-workflow.md](./git-workflow.md) | Git 执行：分支 / 合并 / tag | "创建分支 / 打 tag / 合并" |
 
