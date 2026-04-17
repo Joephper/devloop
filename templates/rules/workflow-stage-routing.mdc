@@ -1,0 +1,15 @@
+---
+description: Route multi-stage delivery work to the correct skill
+alwaysApply: true
+---
+
+# Workflow Stage Routing
+
+- This rule is a project-local accelerator. If another repository does not include this file, the agent should still follow the same workflow through personal skills such as `auto-programming-workflow` and `delivery-orchestrator`.
+- When the user asks for end-to-end delivery, automated workflow orchestration, or a full flow from requirement to merge, use `delivery-orchestrator` first.
+- When the user asks to sort requirements, write changelog, write PRD, or clarify product scope, use `product-manager`.
+- When changelog and PRD are confirmed and the user asks for TECH design or implementation, use `tech-developer`.
+- When confirmed TECH spans multiple independent modules, directories, or subsystems, use `parallel-dev` to split and coordinate parallel development.
+- When code is complete and the next step is validation, testing, regression, or acceptance, use `qa-tester`.
+- When QA has passed and the user asks for merge audit, MR review, or a summary before merge, use `merge-review`.
+- When the user asks to create a branch, create an MR link, merge branches, tag, push, pull, or perform other Git execution tasks, use `git-workflow`.

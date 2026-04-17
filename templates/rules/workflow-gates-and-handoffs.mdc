@@ -1,0 +1,19 @@
+---
+description: Enforce workflow gates and skill handoffs across delivery stages
+alwaysApply: true
+---
+
+# Workflow Gates And Handoffs
+
+- This rule is a project-local accelerator. If another repository does not include this file, the agent should still enforce the same stage gates through personal skills such as `auto-programming-workflow` and `delivery-orchestrator`.
+- Do not skip stages in the delivery pipeline: `product-manager` -> `tech-developer` -> `parallel-dev` when needed -> `qa-tester` -> `merge-review` -> `git-workflow`.
+- Do not enter `tech-developer` implementation until changelog and PRD are confirmed.
+- Do not write code until TECH is confirmed; if TECH implies multiple independent modules, hand off to `parallel-dev`.
+- Do not enter `parallel-dev` until the required branch baseline and `git worktree` are ready; if worktree is missing, hand off to `git-workflow` first.
+- Do not enter `qa-tester` until implementation is complete.
+- Do not enter `merge-review` until QA has produced an explicit result.
+- Do not enter `git-workflow` for merge, tag, or release operations until `merge-review` is complete and the user has confirmed the review result.
+- If requirements are unclear during technical work, route back to `product-manager`.
+- If QA fails, route back to `tech-developer` or the relevant parallel sub-flow.
+- If review finds blocking issues, route back to `tech-developer`.
+- If Git operations hit conflicts or permission issues, stop and ask the user how to proceed.
