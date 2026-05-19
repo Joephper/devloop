@@ -125,13 +125,3 @@ e:\开发文档\AI编程\
 ```
 
 ---
-
-## 五、参考样板
-
-本知识库的示范项目：`sailvan-opengate-backend`
-
-- 已落地的 `docs/` 目录结构：`overview/` + `modules/Fxx-*/{PRD,TECH}.md` + `changelog/LATEST.md`
-- 已形成的阶段规则：`.cursor/rules/workflow-stage-routing.mdc`、`workflow-gates-and-handoffs.mdc`
-- 已使用的全局 Skills：`delivery-orchestrator` 驱动全流程
-
-你可以把该项目作为"参考工程"，对照本知识库的模板快速推广到新项目。
