@@ -66,8 +66,7 @@ feature-{大模块}-{子模块}
 1. 确认大模块分支存在
 2. 若大模块分支或子模块分支尚未准备好，先交给 `git-workflow`
 3. 从大模块分支切出子模块分支
-4. 刷新 Git 分支缓存
-5. 如需独立运行环境，确认 `git-worktree` 已由 `git-workflow` 创建，再继续端口与环境分配
+4. 如需独立运行环境，确认 `git-worktree` 已由 `git-workflow` 创建，再继续端口与环境分配
 
 ## Worktree 与端口管理
 

@@ -1,6 +1,6 @@
 ---
 name: git-workflow
-description: Git 分支管理、缓存维护、安全合并、标签发布与冲突处理。Use when the user mentions git, 分支, branch, merge, 合并执行, MR 创建, tag, 发布, push, pull, checkout, rebase, cherry-pick, or other Git execution tasks after review approval.
+description: Git 分支管理、安全合并、标签发布与冲突处理。Use when the user mentions git, 分支, branch, merge, 合并执行, MR 创建, tag, 发布, push, pull, checkout, rebase, cherry-pick, or other Git execution tasks after review approval.
 ---
 
 # Git Workflow
@@ -9,7 +9,6 @@ description: Git 分支管理、缓存维护、安全合并、标签发布与冲
 
 此技能是研发流程的 Git 执行层，只负责：
 - 分支策略与命名约束
-- `.shared_cache/git/` 缓存读取与刷新
 - 受控的 merge / tag / push / pull / branch 操作
 - 并行开发所需的 `git worktree` 创建与清理
 - Merge Request 链接生成
@@ -57,7 +56,7 @@ description: Git 分支管理、缓存维护、安全合并、标签发布与冲
 
 ### feature / hotfix -> dev
 
-可正常合并。完成后刷新 `branches` 缓存。
+可正常合并。完成后用 `git status` 和必要的 `git branch` 命令确认结果。
 
 ### feature / hotfix / dev -> pre
 
@@ -71,7 +70,7 @@ description: Git 分支管理、缓存维护、安全合并、标签发布与冲
 
 这是生产发布前的最高风险操作，必须同时满足：
 1. 来源校验：只允许 `pre` 合并到 `master`
-2. 权限校验：读取 `.shared_cache/git/permissions.json` 的 `can_push_master`
+2. 权限校验：用当前 Git 远程与账号做实时检查，不读取缓存
 3. 用户二次确认：
    > "即将把 `pre` 合并到生产分支 `master`，这是生产发布操作。是否继续？"
 
@@ -84,7 +83,6 @@ description: Git 分支管理、缓存维护、安全合并、标签发布与冲
 2. 确认用户同意：
    > "即将在 master 上创建标签 `{tag_name}` 并推送到远程，推送后会触发生产环境部署。确认继续？"
 3. 执行 `git tag` 与 `git push origin`
-4. 刷新 `tags` 缓存
 
 ### 禁止的操作
 
@@ -101,45 +99,17 @@ description: Git 分支管理、缓存维护、安全合并、标签发布与冲
 4. 绝不自动完成冲突解决并直接提交
 5. 全部解决后，提示用户确认下一步提交或继续合并
 
-## 缓存管理
+## Git 元数据读取
 
-### `.shared_cache/` 约定
+查询分支、标签、远程、权限或当前状态时，直接执行 Git 命令获取实时结果，不读取、不创建、不刷新 `.shared_cache/git/` 下的缓存文件。
 
-首次使用缓存前，先检查仓库根目录 `.gitignore` 是否包含 `.shared_cache/`：
-- 若已存在，继续
-- 若不存在，追加 `.shared_cache/`
-
-### 读取策略
-
-查询分支、标签、远程或权限信息时：
-1. 优先读取 `.shared_cache/git/` 下对应 JSON
-2. 文件存在且关键字段完整时直接使用
-3. 文件不存在或字段缺失时，再执行 Git 命令并回写
-
-所有缓存文件都必须包含 `last_updated`（ISO 8601）。
-
-### 自动刷新触发
-
-以下操作完成后刷新对应缓存：
-- 创建 / 删除分支
-- 创建 / 删除 tag
-- push / pull
-- merge 完成
-- 用户主动要求刷新
-
-### 同步脚本
-
-```bash
-python ~/.cursor/skills/git-workflow/scripts/sync_git_cache.py [targets...]
-```
-
-可选 targets：`remote`、`branches`、`tags`、`permissions`、`all`。
+如果仓库中已经存在历史 `.shared_cache/git/` 文件，视为项目本地遗留数据；除非用户明确要求清理，不要修改这些文件。
 
 ## GitLab MR 工作流
 
 当用户需要创建 Merge Request 时：
 1. 确认源分支与目标分支
-2. 从 `.shared_cache/git/remote-info.json` 读取 GitLab 地址
+2. 用 `git remote get-url origin` 获取 GitLab 地址
 3. 构造 MR URL：`{gitlab_url}/-/merge_requests/new?merge_request[source_branch]={source}&merge_request[target_branch]={target}`
 4. 将链接交给用户在浏览器中操作
 
@@ -148,14 +118,12 @@ python ~/.cursor/skills/git-workflow/scripts/sync_git_cache.py [targets...]
 当 `parallel-dev` 需要并行工作目录时，本技能负责 Git 侧准备：
 1. 确认大模块分支或子模块分支存在，不存在则先创建
 2. 为目标分支创建对应 `git worktree`
-3. 刷新 `branches` 缓存
-4. 如项目使用端口注册表或其他共享数据，再交回 `parallel-dev` 继续分配
+3. 如项目使用端口注册表或其他共享数据，再交回 `parallel-dev` 继续分配
 
 如果用户要开始并行开发，但仓库还没有 worktree，不要直接进入 `parallel-dev`，应先执行本技能。
 
 ## 结束后的交接
 
 完成 Git 操作后：
-1. 刷新相关缓存
-2. 向用户说明结果与当前分支状态
-3. 若只是完成 MR 创建，则等待用户后续审阅或合并决定
+1. 向用户说明结果与当前分支状态
+2. 若只是完成 MR 创建，则等待用户后续审阅或合并决定

@@ -32,7 +32,7 @@ templates/
 # 1. 建目录
 mkdir my-project\docs\{overview,modules,changelog}
 mkdir my-project\.cursor\rules
-mkdir my-project\.shared_cache\{git,shared-data}
+mkdir my-project\.shared_cache\shared-data
 
 # 2. 复制 Rules
 Copy-Item templates\rules\*.mdc my-project\.cursor\rules\

@@ -254,7 +254,7 @@ flowchart TD
 2. 合并到 `master` 必须：来源=pre + 权限 OK + 用户二次确认
 3. `master` 禁止 force push
 
-**缓存管理**：所有 Git 元操作后自动刷新 `.shared_cache/git/*.json`。
+**Git 元数据**：分支、标签、远程和权限信息直接通过 `git` 命令实时查询，不维护 `.shared_cache/git/*.json`。
 
 ---
 

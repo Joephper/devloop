@@ -19,7 +19,7 @@
 ```bash
 mkdir -p my-new-project/docs/{overview,modules,changelog}
 mkdir -p my-new-project/.cursor/rules
-mkdir -p my-new-project/.shared_cache/{git,shared-data}
+mkdir -p my-new-project/.shared_cache/shared-data
 ```
 
 - [ ] `.gitignore` 追加 `.shared_cache/`
@@ -168,10 +168,10 @@ docs/
 - 把"先读 docs"写进 Skill 的首条步骤（PM/TD/QA 的 SKILL.md 已有）
 - 让 AI 在回答前先输出"我读到了什么"，验证上下文
 
-### 4.3 ".shared_cache/ 不刷新"
+### 4.3 "Git 元数据仍在读缓存"
 
-- 检查 `shared-cache.mdc` 是否写了"变更后立即刷新"
-- `git-workflow` Skill 里已有自动刷新触发点
+- 检查 `shared-cache.mdc` 是否写了"不读取、不创建、不刷新 `.shared_cache/git/`"
+- 检查 `git-workflow` Skill 是否改为直接执行 `git` 命令实时查询
 
 ### 4.4 "AI 建议直接合到 master"
 

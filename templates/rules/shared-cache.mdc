@@ -7,16 +7,11 @@ alwaysApply: true
 
 - 每个项目根目录下使用 `.shared_cache/` 目录作为本地持久缓存。此目录 **必须** 加入 `.gitignore`，首次使用时自动检查并追加。
 - `.shared_cache/` 不受 git 分支切换影响（被 gitignore 的文件不会被 checkout 覆盖），所有分支共享同一份缓存。
-- 当需要 git 元数据（分支列表、标签、远程地址、推送权限等）时，**优先**从 `.shared_cache/git/` 下的 JSON 文件读取；若缓存文件不存在或关键字段缺失，则执行 git 命令获取并回写缓存。
-- 执行创建分支、删除分支、创建 tag、push、pull 等变更操作后，应刷新对应的缓存文件。
+- 当需要 git 元数据（分支列表、标签、远程地址、推送权限等）时，直接执行 git 命令获取实时结果，不读取、不创建、不刷新 `.shared_cache/git/` 下的缓存文件。
+- 若仓库中已经存在历史 `.shared_cache/git/` 文件，视为本地遗留数据；除非用户明确要求清理，不要修改这些文件。
 - 缓存目录结构约定：
  ```
  .shared_cache/
-   git/
-     remote-info.json      — 远程仓库地址、默认分支
-     branches.json         — 当前分支、本地分支列表、远程分支列表
-     tags.json             — 标签列表（按创建时间倒序）
-     permissions.json      — master 推送权限检查结果
    shared-data/            — 跨分支共享的业务数据（端口注册表等）
  ```
-- 所有缓存 JSON 文件必须包含 `last_updated` 时间戳字段（ISO 8601 格式）。
+- `shared-data/` 下的业务共享 JSON 文件应包含 `last_updated` 时间戳字段（ISO 8601 格式）。

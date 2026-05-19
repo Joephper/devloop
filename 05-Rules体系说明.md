@@ -79,9 +79,9 @@ alwaysApply: true
 
 - 每个项目根目录使用 .shared_cache/ 作为本地持久缓存
 - 必须加入 .gitignore
-- 查询 git 元数据优先读 .shared_cache/git/*.json
-- 变更操作后立即刷新缓存
-- 所有缓存 JSON 必须含 last_updated (ISO 8601)
+- git 元数据直接通过 git 命令实时查询
+- 不读取、不创建、不刷新 .shared_cache/git/*.json
+- shared-data 下的业务共享 JSON 应含 last_updated (ISO 8601)
 ```
 
 > 完整模板：[templates/rules/shared-cache.mdc](./templates/rules/shared-cache.mdc)
@@ -146,7 +146,8 @@ globs: "src/**/*.ts"       # 可选，匹配到对应文件才注入
 # 2. 共享缓存约定
 - 每个项目根目录使用 .shared_cache/ 作为本地持久缓存
 - 必须加入 .gitignore
-- 查询 git 元数据优先读缓存 JSON
+- git 元数据直接通过 git 命令实时查询
+- 不读取、不创建、不刷新 .shared_cache/git/*.json
 
 # 3. 沟通语言
 - Always respond in 中文
